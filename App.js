@@ -59,22 +59,22 @@ export default function App() {
         const options = { quality: 0.5, base64: true, };
         const data = await cameraRef.current.takePictureAsync(options);
 
-        try{
-        // Create a directory named 'images' if it doesn't exist
-        const imagesDirectory = `${FileSystem.documentDirectory}images/`;
-        await FileSystem.makeDirectoryAsync(imagesDirectory, { intermediates: true });
+        try {
+          // Create a directory named 'images' if it doesn't exist
+          const imagesDirectory = `${FileSystem.documentDirectory}images/`;
+          await FileSystem.makeDirectoryAsync(imagesDirectory, { intermediates: true });
 
-        // Save the image locally
-        const localUri = `${imagesDirectory}image.jpg`;
-        await FileSystem.moveAsync({
-          from: data.uri,
-          to: localUri,
-        });
-      }catch (e){
-        console.log('Error', e);
-      }
+          // Save the image locally
+          const localUri = `${imagesDirectory}image.jpg`;
+          await FileSystem.moveAsync({
+            from: data.uri,
+            to: localUri,
+          });
+        } catch (e) {
+          console.log('Error', e);
+        }
 
-        fetch('https://5f76-2001-4450-46b7-f00-db68-ed94-d2a2-31f1.ngrok.io/server',
+        fetch('https://curvz-style-client-mobile.onrender.com/server',
           {
             method: 'POST',
             headers: {
