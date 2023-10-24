@@ -56,7 +56,7 @@ export default function App() {
   const TakePicture = async () => {
     if (cameraRef.current) {
       try {
-        const options = { quality: 0.5, base64: true, };
+        const options = { quality: 0.5, base64: true, width: 640, height: 480 };
         const data = await cameraRef.current.takePictureAsync(options);
 
         try {
@@ -74,7 +74,8 @@ export default function App() {
           console.log('Error', e);
         }
 
-        fetch('https://curvz-style-client-mobile.onrender.com/server',
+        // fetch('https://curvz-style-client-mobile.onrender.com/server',
+        fetch('https://1022-2001-4450-46b7-f00-7d03-4e40-9d91-35fe.ngrok-free.app/server',
           {
             method: 'POST',
             headers: {
@@ -115,7 +116,7 @@ export default function App() {
     <View style={styles.container}>
 
       {/* cameraView */}
-      <Camera style={{ flex: 1, }} type={type} ref={cameraRef} ratio={'16:9'}>
+      <Camera style={{ flex: 1, }} type={type} ref={cameraRef} ratio={'5:3'}>
         <View style={{ flex: 1, backgroundColor: 'transparent', flexDirection: 'row', alignSelf: 'center' }}>
           <View style={styles.rectangle}></View>
         </View>

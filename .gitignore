@@ -35,5 +35,7 @@ yarn-error.*
 *.tsbuildinfo
 myProjectServer
 .env
-curvz-style-client-mobile
-ngrok
+
+#ignore back-end
+curvz-style-client-mobile/
+ngrok.exe
