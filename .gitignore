@@ -36,3 +36,4 @@ yarn-error.*
 myProjectServer
 .env
 curvz-style-client-mobile
+ngrok
