@@ -4,6 +4,7 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image, Modal } from 'react-native';
 import { Camera } from 'expo-camera';
 import React, { useState, useRef, useEffect } from 'react';
+import * as FileSystem from 'expo-file-system'
 
 
 
@@ -58,7 +59,22 @@ export default function App() {
         const options = { quality: 0.5, base64: true, };
         const data = await cameraRef.current.takePictureAsync(options);
 
-        fetch('https://curvz-style-client-mobile.onrender.com/server',
+        try{
+        // Create a directory named 'images' if it doesn't exist
+        const imagesDirectory = `${FileSystem.documentDirectory}images/`;
+        await FileSystem.makeDirectoryAsync(imagesDirectory, { intermediates: true });
+
+        // Save the image locally
+        const localUri = `${imagesDirectory}image.jpg`;
+        await FileSystem.moveAsync({
+          from: data.uri,
+          to: localUri,
+        });
+      }catch (e){
+        console.log('Error', e);
+      }
+
+        fetch('https://5f76-2001-4450-46b7-f00-db68-ed94-d2a2-31f1.ngrok.io/server',
           {
             method: 'POST',
             headers: {
@@ -99,7 +115,7 @@ export default function App() {
     <View style={styles.container}>
 
       {/* cameraView */}
-      <Camera style={{ flex: 1, }} type={type} ref={cameraRef}>
+      <Camera style={{ flex: 1, }} type={type} ref={cameraRef} ratio={'16:9'}>
         <View style={{ flex: 1, backgroundColor: 'transparent', flexDirection: 'row', alignSelf: 'center' }}>
           <View style={styles.rectangle}></View>
         </View>
@@ -125,8 +141,8 @@ export default function App() {
               <Text style={{ fontWeight: 'bold' }}>IDEAL POSITION:</Text>
               <View>
                 <BulletText text='Pitch angle - Portrait shot' />
-                <BulletText text='Height from ground - 20cm' />
-                <BulletText text='Distance from character - 50cm' />
+                <BulletText text='Height from ground - 30inch' />
+                <BulletText text='Distance from character - 60inch' />
                 <BulletText text='Focal angle - Reference reactangle' />
               </View>
               <TouchableOpacity style={{ marginTop: 10, width: 50, height: 30, justifyContent: 'center', alignItems: 'center' }} onPress={() => setModalVisible(false)}>
