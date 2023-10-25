@@ -1,6 +1,3 @@
-// every time ngrok executed make sure to change the fetch "value" besides "PATH(/server)" to match the nrok generated link.
-// open the link click "Visit Site" for authentication,
-// otherwise it won't connect to back-end.
 import { StyleSheet, Text, TouchableOpacity, View, Image, Modal } from 'react-native';
 import { Camera } from 'expo-camera';
 import React, { useState, useRef, useEffect } from 'react';
@@ -56,7 +53,7 @@ export default function App() {
   const TakePicture = async () => {
     if (cameraRef.current) {
       try {
-        const options = { quality: 0.5, base64: true, };
+        const options = { quality: 0.5, base64: true, width: 640, height: 480 };
         const data = await cameraRef.current.takePictureAsync(options);
 
         try {
@@ -115,7 +112,7 @@ export default function App() {
     <View style={styles.container}>
 
       {/* cameraView */}
-      <Camera style={{ flex: 1, }} type={type} ref={cameraRef} ratio={'16:9'}>
+      <Camera style={{ flex: 1, }} type={type} ref={cameraRef} ratio={'5:3'}>
         <View style={{ flex: 1, backgroundColor: 'transparent', flexDirection: 'row', alignSelf: 'center' }}>
           <View style={styles.rectangle}></View>
         </View>
